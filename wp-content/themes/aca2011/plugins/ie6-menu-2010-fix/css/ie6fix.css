@@ -1,0 +1,246 @@
+/* ------------------------------------------------------ *
+ *  IE6 Support Fixes for Wordpress 3.0 TwentyTen Theme   *
+ * ------------------------------------------------------ */
+
+/* Begin IE6 hacks -------------------------------------- */
+
+/* Fix avatars floating over text in comments */
+* html .commentlist .avatar
+{
+	left: -55px;
+}
+
+/* Fix fonts */
+* html #site-title,
+* html #access,
+* html .entry-title,
+* html .widget-title,
+* html .entry-meta,
+* html .entry-utility,
+* html #comments-title,
+* html .comment-meta,
+* html #wp-calendar,
+* html #nav-above,
+* html .form-allowed-tags,
+* html #reply-title,
+* html #site-info,
+* html #commentform  label
+{
+	font-family: "Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+}
+
+/* Widget title fix */
+* html .widget-title
+{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+/* Fix navigation panel between posts */
+* html #nav-above
+{
+	line-height: 18px;
+	height: 18px;
+}
+
+/* Comment form fix */
+* html #commentform input, * html #commentform textarea
+{
+	width: 627px;
+}
+
+/* Comment submit fix */
+*html #commentform #submit
+{
+	font-family: "Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+}
+
+/* Fix menu */
+* html #access li:hover a,
+* html #access ul ul:hover a
+{
+	color:#fff;
+	/*background:#333*/;
+}
+
+/* Page displaying hacks /*
+
+/* Because IE6 doesn't support the child selector ">",		*/
+/* providing a good common styling method is rather hard.	*/
+/* This is why this hack takes care of only the first 5		*/
+/* levels of nesting (it will be OK for ~95% of the users)	*/
+
+/* First level */
+* html #access li:hover ul
+{
+	display:block;
+}
+
+* html #access li:hover ul ul
+{
+	display:none;
+}
+
+/* First level highlight fix */
+* html #access li:hover ul a
+{
+	color: #aaa;
+}
+
+* html #access li li:hover a
+{
+	color: #fff;
+}
+
+/* Second level */
+* html #access li li:hover ul
+{
+	display:block;
+}
+
+* html #access li li:hover ul ul
+{
+	display:none;
+}
+
+/* Second level highlight fix */
+* html #access li li:hover ul a
+{
+	color: #aaa;
+}
+
+* html #access li li li:hover a
+{
+	color: #fff;
+}
+
+/* Third level */
+* html #access li li li:hover ul
+{
+	display:block;
+}
+
+* html #access li li li:hover ul ul
+{
+	display:none;
+}
+
+/* Third level highlight fix */
+* html #access li li li:hover ul a
+{
+	color: #aaa;
+}
+
+* html #access li li li li:hover a
+{
+	color: #fff;
+}
+
+/* Fourth level */
+* html #access li li li li:hover ul
+{
+	display:block;
+}
+
+* html #access li li li li:hover ul ul
+{
+	display:none;
+}
+
+/* Fourth level highlight fix */
+* html #access li li li li:hover ul a
+{
+	color: #aaa;
+}
+
+* html #access li li li li li:hover a
+{
+	color: #fff;
+}
+
+/* Fifth level */
+* html #access li li li li li:hover ul
+{
+	display:block;
+}
+
+* html #access li li li li li:hover ul ul
+{
+	display:none;
+}
+
+/* Fifth level highlight fix */
+* html #access li li li li li:hover ul a
+{
+	color: #aaa;
+}
+
+* html #access li li li li li li:hover a
+{
+	color: #fff;
+}
+
+/* Final fix - all further nested items will show up at once */
+* html #access li li li li li li:hover ul
+{
+	display:block;
+}
+
+/* Final highlight fix */
+* html #access li li li li li li:hover ul a
+{
+	color: #aaa;
+}
+
+* html #access ul li.current_page_item a,
+* html #access ul li.current-menu-ancestor a,
+* html #access ul li.current-menu-item a,
+* html #access ul li.current-menu-parent a
+{
+	color: #fff;
+}
+
+* html #access ul li.current_page_item a,
+* html #access ul li.current-menu-ancestor a,
+* html #access ul li.current-menu-item a,
+* html #access ul li.current-menu-parent a,
+* html #access ul li a:hover
+{
+	color:#fff;
+}
+
+
+/* easy menu background fix 
+ *  This is ugly. Since IE6 doesn't 
+ *  position PNG background image, 
+ *  we have to place those empty 
+ *  override to make the image disappear
+ **/
+#easy-menu-1 {
+    background-image: url('images/keys_icon.png');
+    background-repeat: no-repeat;
+    background-position: 53px 17px;
+    padding-left: 20px;
+}
+#easy-menu-2 {
+    background-image: url('images/user_group_icon.png');
+    background-repeat: no-repeat;
+    background-position: 40px 17px;
+    padding-left: 15px;
+}
+
+#easy-menu-3 {
+    background-image: url('images/torch_icon.png');
+    background-repeat: no-repeat;
+    background-position: 40px 15px;
+    padding-left: 20px;
+}
+
+#easy-menu-4 {
+    background-image: url('images/email_icon.png');
+    background-repeat: no-repeat;
+    background-position: 40px 20px;
+    padding-left: 15px;
+}
+
+/* End IE6 hacks ---------------------------------------- */

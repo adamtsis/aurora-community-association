@@ -1,0 +1,32 @@
+[fdr_wrapper]
+<div class="row section">
+<div class="col six">
+<div class="widget-box">
+<p><strong>Fire Danger Rating Shortcode (accepts regions) </strong></p>
+[fire_danger_rating district="central"]
+</div>
+<div class="widget-box">
+<p><strong>Weather Forecast</strong></p>
+[weather_forecast]
+</div>
+<div class="widget-box">
+<p><strong>Fire Danger Rating Forecast</strong></p>
+[fire_danger_rating_forecast district="central"]
+</div>
+<div class="widget-box">
+<p><strong>Incident Feed (CFA) (looking to implement suburb list limiting) </strong></p>
+[incident_feed]
+</div>
+<div class="widget-box">
+<p><strong>Warning Advise Feed (CFA) </strong></p>
+[warning_advise_feed]
+</div>
+</div>
+<div class="col six">
+<div class="widget-box">
+<p><strong>Twitter</strong></p>
+[twitter_feed]
+</div>
+</div>
+</div>
+[fdr_wrapper_end]

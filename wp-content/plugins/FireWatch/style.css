@@ -1,0 +1,241 @@
+/* 
+    Document   : styles
+    Created on : 01/12/2012, 4:09:46 PM
+    Author     : djlaidler
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* ==========================================================================
+
+  Base Stylesheet - http://matthewhartman.github.com/base/
+  Author: Matthew Hartman - http://www.matthewhartman.com.au/
+  Version: 1.2 - Last Updated: 12th January, 2013
+
+========================================================================== */
+/* ==========================================================================
+/* --  Micro Clearfix, Resets and Common Classes
+   ========================================================================== */
+/* Micro Clearfix */
+.fdr-wrapper .clear:before, .fdr-wrapper .clear:after { content: ""; display: table; }
+.fdr-wrapper .clear:after { clear: both; }
+.fdr-wrapper .clear { zoom: 1; }
+.fdr-wrapper .section:before, .fdr-wrapper .section:after { content: ""; display: table; }
+.fdr-wrapper .section:after { clear: both; }
+.fdr-wrapper .section { zoom: 1; }
+/* General Resets */
+.fdr-wrapper { font-size: 100%; }
+.fdr-wrapper button, .fdr-wrapper input, .fdr-wrapper select, .fdr-wrapper textarea { font-family: sans-serif; }
+.fdr-wrapper form, .fdr-wrapper fieldset, .fdr-wrapper a img { border: 0; }
+/* Common Classes */
+.fdr-wrapper .left { float: left; }
+.fdr-wrapper .right { float: right; }
+.fdr-wrapper .block { display: block; }
+.fdr-wrapper .inline-block {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+}
+.fdr-wrapper .alert {
+  background-color: #ffffcc;
+  display: block;
+  padding: 4px 8px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.fdr-wrapper .nolist { list-style: none; }
+.fdr-wrapper .nopadding { padding: 0; }
+.fdr-wrapper .nomargin { margin: 0; }
+/* ==========================================================================
+/* 1.0 - Document Setup (body, links, headings, code, tables, forms etc)
+   ========================================================================== */
+/* Body */
+.fdr-wrapper {
+  font-family: arial, helvetica, clean, sans-serif;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 22px;
+  line-height: 1.375rem;
+  background-color: #ffffff;
+  color: #222222;
+  margin: 0;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+/* Links */
+.fdr-wrapper a {
+  color: #ff3300;
+  text-decoration: underline;
+}
+.fdr-wrapper a:visited { color: #ff3300; }
+.fdr-wrapper a:hover { text-decoration: none; }
+.fdr-wrapper a:active { color: #333333; }
+
+/* 1.1 Headings - h1, h2, h3, h4, h5, h6 & other (if any)
+   ========================================================================== */
+.fdr-wrapper h1, .fdr-wrapper h2, .fdr-wrapper h3, .fdr-wrapper h4, .fdr-wrapper h5, .fdr-wrapper h6 {
+  margin: 0;
+  line-height: normal;
+}
+.fdr-wrapper h1 {
+  font-size: 40px;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+.fdr-wrapper h2 {
+  font-size: 32px;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+.fdr-wrapper h3 {
+  font-size: 26px;
+  font-size: 1.625rem;
+  margin-bottom: 6px;
+}
+.fdr-wrapper h4 {
+  font-size: 20px;
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+/* 1.2 Paragraphs, block quotes, code, pre, etc
+   ========================================================================== */
+.fdr-wrapper small {
+  font-size: 12px;
+  font-size: 0.75rem;
+}
+/* Block Quotes, Pre and Code Blocks */
+.fdr-wrapper blockquote, .fdr-wrapper q {
+  quotes: none;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: .5em 1em;
+  margin: 0;
+  font-style: italic;
+}
+.fdr-wrapper code, .fdr-wrapper pre {
+  padding: 2px 6px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 12px;
+  font-size: 0.75rem;
+  background-color: #f1f1f1;
+  border: 1px solid #dddddd;
+  line-height: normal;
+  color: #222222;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+/* Horizontal Rule */
+.fdr-wrapper hr {
+  border: 0;
+  background: none;
+  outline: 0;
+  height: 1px;
+  background-color: #dddddd;
+  margin: 2em 0;
+}
+/* 1.3 Tables
+   ========================================================================== */
+.fdr-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  border-left: 0;
+  background-color: #fff;
+  border-spacing: 0;
+  table-layout: fixed;
+  word-wrap: break-word;
+  -ms-word-wrap: break-word;
+  *white-space: normal;
+}
+.fdr-wrapper table th, .fdr-wrapper table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #eeeeee;
+}
+.fdr-wrapper table thead th {
+  vertical-align: bottom;
+  font-weight: bold;
+  background-color: #ffffff;
+  color: #222222;
+}
+.fdr-wrapper table tfoot td { font-weight: bold; }
+.fdr-wrapper table caption {
+  padding: .5em;
+  font-style: italic;
+  background-color: #eeeeee;
+  border-bottom: 0;
+  font-weight: bold;
+}
+/* 1.4 Lists
+   ========================================================================== */
+.fdr-wrapper ul, .fdr-wrapper ul ul {
+  list-style: disc;
+  margin: 4px 0 4px 25px;
+  padding: 0;
+}
+.fdr-wrapper ol, .fdr-wrapper ol ol {
+  list-style: decimal;
+  margin: 4px 0 4px 25px;
+  padding: 0;
+}
+/* 1.5 Forms, Labels and Inputs
+   ========================================================================== */
+/* ==========================================================================
+/* 2.0 - Grid Layout (Responsive)
+   ========================================================================== */
+/* Sections & Content Blocks */
+.fdr-wrapper .section { position: relative; }
+.fdr-wrapper .row { margin-bottom: 1em; }
+.fdr-wrapper .container { margin: 0 auto; }
+.fdr-wrapper .container-full { margin: 0 auto; }
+
+/* Fluid Grid */
+.fdr-wrapper .col { margin-left: 2%; float: left; }
+.fdr-wrapper .col:first-child { margin-left: 0; }
+/* Columns */
+.fdr-wrapper .one { width: 6.333%; }
+.fdr-wrapper .two { width: 14.667%; }
+.fdr-wrapper .three { width: 23.0%; }
+.fdr-wrapper .four { width: 31.333%; }
+.fdr-wrapper .five { width: 39.667%; }
+.fdr-wrapper .six { width: 48.0%; }
+.fdr-wrapper .seven { width: 56.333%; }
+.fdr-wrapper .eight { width: 64.667%; }
+.fdr-wrapper .nine { width: 73.0%; }
+.fdr-wrapper .ten { width: 81.333%; }
+.fdr-wrapper .eleven { width: 89.667%; }
+.fdr-wrapper .twelve { width: 100%; }
+
+.fdr-wrapper .widget-box { padding:15px; margin-bottom:15px; background: #f0f0f0; border-radius:5px; box-shadow:0 1px 7px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6); text-shadow:0 -1px 0 rgba(255,255,255,0.6); border:1px solid #e0e0e0; }
+
+
+/* Fire Danger Level Widget */
+.fdr-wrapper .fdr { margin-bottom: 15px; text-align:center; }
+.fdr-wrapper .fdr_links { display:none; } /* Links for other days disabled. Seperate Forecast Widget. */
+
+.fdr-wrapper .fdr .danger-level { padding:10px 20px; line-height:24px; display:inline-block; font-size:20px; xtext-align:center; margin:0 auto; }
+.fdr-wrapper .fdr-codered .danger-level { background:red; }
+.fdr-wrapper .fdr-extreme .danger-level { background:lightred; }
+.fdr-wrapper .fdr-severe .danger-level { background:orange; }
+.fdr-wrapper .fdr-veryhigh .danger-level { background:yellow; }
+.fdr-wrapper .fdr-high .danger-level { background:lightblue; }
+.fdr-wrapper .fdr-lowtomoderate .danger-level { background:green; }
+.fdr-wrapper .fdr-low-moderate .danger-level { background:lightgreen; }
+.fdr-wrapper .fdr-noforecast .danger-level { background:gray; }
+
+.fdr-wrapper .fire-forecast #fdr_0 { display:none; } /* Hide the first/today's fire rating for forecast */
