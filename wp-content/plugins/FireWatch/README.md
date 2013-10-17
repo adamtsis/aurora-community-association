@@ -57,7 +57,7 @@ The FireWatch Dashboard uses Twitter Embedded Timelines to display tweets
 About Twitter Embedded Timelines: [https://dev.twitter.com/docs/embedded-timelines](https://dev.twitter.com/docs/embedded-timelines)
 
 Creating a Twitter Widget and Getting the Twitter Widget id
-------------------------------------------------------------
+------------------------------------------------------------  
 
 * Log into your Twitter account
 * Go to the Settings page and click "Widgets" [https://twitter.com/settings/widgets/](https://twitter.com/settings/widgets/)

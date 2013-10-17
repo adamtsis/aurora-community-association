@@ -231,7 +231,7 @@
 .fdr-wrapper .fdr_links { display:none; } /* Links for other days disabled. Seperate Forecast Widget. */
 
 .fdr-wrapper .fdr .danger-level { padding:20px 25px; line-height:30px; font-size:28px; font-weight:700; text-transform:uppercase; display:inline-block; text-align:center; margin:0 auto; }
-.fdr-wrapper .fdr-codered .danger-level { background:#FB1309 url(img/code-red.png); color:#fff; }
+.fdr-wrapper .fdr-codered .danger-level { background:#FB1309 url(images/code-red.png); color:#fff; }
 .fdr-wrapper .fdr-extreme .danger-level {
 background: #ff6666; /* Old browsers */
 background: -moz-linear-gradient(top,  #ff6666 0%, #ff0000 100%); /* FF3.6+ */
@@ -303,8 +303,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1d36f', end
 /* Widget Box Button */
 .widget-box.button-style { margin-bottom:10px; display:block; font-weight:bold; background:#fff; border:2px solid #DCDCDC; padding:15px 20px 15px 10px; text-align:center; font-size:16px; line-height:20px; }
 .widget-box.button-style .col { height:40px; }
-.widget-box.button-style.vic-roads .button-bg { background:url(img/vic-roads.jpg) no-repeat center center; background-size:100%; }
-.widget-box.button-style.cfa { background: #fff url(img/cfa.jpg) 35px 6px no-repeat; background-size:60px 60px ; }
+.widget-box.button-style.vic-roads .button-bg { background:url(images/vic-roads.jpg) no-repeat center center; background-size:100%; }
+.widget-box.button-style.cfa { background: #fff url(images/cfa.jpg) 35px 6px no-repeat; background-size:60px 60px ; }
 @media screen and (max-width:1000px) {
   .row.cfa-buttons .columns { width:100% !important; }
 }
@@ -314,3 +314,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1d36f', end
 
 .fdr-wrapper .below-twitter { padding:10px 10px 0; line-height:1.5; font-size:13px; }
 .fdr-wrapper .below-twitter .yellow-button { background:#FFC70F; font-weight:700; font-size:15px; line-height:18px; padding:10px 15px; margin-top:10px; display:inline-block; text-decoration:none; }
+
+.large-6 { position: relative; width: 50%; }
+.column, .columns { float: left; padding-left: 0.9375em; padding-right: 0.9375em; position: relative; direction: ltr; }

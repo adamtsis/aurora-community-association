@@ -3,36 +3,60 @@
 This page brings together information from the CFA, Bureau of Meteorology and VicRoads. This information relates to the Aurora Estate. This page also has a Twitter feed where you in the community can let others know quickly what is happening where you are.
 
 [fdr_wrapper]
-<div class="row section">
-<div class="col six">
-<div class="widget-box">
-<p><strong>Current Fire Danger Rating </strong></p>
-[fire_danger_rating district="central"]
-</div>
-<div class="widget-box">
-<p><strong>Current Weather Conditions </strong></p>
-[weather_forecast temperature_unit="c"]
-</div>
-<div class="widget-box">
-<p><strong>Fire Danger Rating Forecast</strong></p>
-[fire_danger_rating_forecast district="central"]
-</div>
+  <div class="row section">
+    <div class="col six">
+      <div class="widget-box">
+        <p><strong>Current Fire Danger Rating </strong></p>
+        [fire_danger_rating district="central"]
+      </div>
+      <div class="widget-box">
+        <p><strong>Current Weather Conditions </strong></p>
+        [weather_forecast temperature_unit="c"]
+      </div>
+      <div class="widget-box">
+        <p><strong>Fire Danger Rating Forecast</strong></p>
+        [fire_danger_rating_forecast district="central" days="3"]
+      </div>
 
-<div class="widget-box chart-widget" style="background: none repeat scroll 0 0 #FFFFFF">
-<a href="http://www.cfa.vic.gov.au/warnings-restrictions/about-fire-danger-ratings/" target="_blank"><br>
-<img alt="" src="http://www.cfa.vic.gov.au/fm_files/img/warnings-restrictions/fdr-chart.gif"><br>
-<span>CFA Website – Info About Fire Danger Ratings</span><br>
-</a>
-</div>
-</div>
-<div class="col six">
-<div class="widget-box">
-<p><strong>Twitter</strong></p>
-[twitter_feed search_query="#aurora" widget_id="xxxxxxxxxxxxxx"]
+      <div class="widget-box chart-widget" style="background: none repeat scroll 0 0 #FFFFFF">
+        <a href="http://www.cfa.vic.gov.au/warnings-restrictions/about-fire-danger-ratings/" target="_blank"><br />
+          <img alt="" src="http://www.cfa.vic.gov.au/fm_files/img/warnings-restrictions/fdr-chart.gif" width="98%"><br />
+          <span>CFA Website – Info About Fire Danger Ratings</span><br>
+        </a>
+      </div>
+    </div>
+    <div class="col six">
+      <div class="widget-box">
+        <p><strong>Twitter</strong></p>
+        [twitter_feed search_query="#3076fire&#3750fire" widget_id="xxxxxxxxxxxxxx"]
 
-The information in the Twitter feed above is sourced from members of the community. Use it only as one of many sources of information to assist your decision making.
+        The information in the Twitter feed above is sourced from members of the community. Use it only as one of many sources of information to assist your decision making.
 
-</div>
-</div>
-</div>
+      </div>
+    </div>
+  </div>
+
+<!-- start widget footer links -->
+  <div class="row cfa-buttons">
+    <div class="col six">
+      <div>
+        <a class="widget-box button-style vic-roads" target="_blank" href="http://alerts.vicroads.vic.gov.au/melbourne-metropolitan/nillumbik">
+          <div class="col six button-bg">&nbsp;</div>
+          <div class="col six button-content">Closures &amp; <br>Traffic Alerts</div>
+          <div class="clear"></div>
+        </a>
+      </div>
+    </div>  
+    <div class="col six">
+      <div>
+        <a class="widget-box button-style cfa" target="_blank" href="http://www.cfa.vic.gov.au/warnings-restrictions/warnings-and-incidents/">
+          <div class="col four button-bg">&nbsp;</div>
+          <div class="col eight button-content">Warnings &amp; <br>Incident Updates</div>
+          <div class="clear"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+<!-- end widget footer links -->
+
 [fdr_wrapper_end]

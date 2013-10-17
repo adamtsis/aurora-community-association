@@ -3,7 +3,8 @@ error_reporting(0);
 include_once('/../functions.php');
 
 if(isset($_GET['independent'])) {
-  echo get_weather_forecast();
+  $temperature_unit='c';
+  echo get_weather_forecast($temperature_unit);
 } else {
   include_once('/../../../../wp-load.php');
   function weather_forecast($atts) {
@@ -18,7 +19,7 @@ if(isset($_GET['independent'])) {
   add_shortcode('weather_forecast', 'weather_forecast');
 }
 
-function get_weather_forecast($temperature_unit) {
+function get_weather_forecast($temperature_unit = 'c') {
   $forecast = '<div class="weather_forecast"></div>';
   $forecast .= "
 <script>
