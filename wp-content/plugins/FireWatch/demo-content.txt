@@ -7,7 +7,8 @@
 </div>
 <div class="widget-box">
 <p><strong>Weather Forecast</strong></p>
-[weather_forecast]
+<!-- temperature_unit supports 'c' for celsius and 'f' for fahrenheit --> 
+[weather_forecast temperature_unit="c"]
 </div>
 <div class="widget-box">
 <p><strong>Fire Danger Rating Forecast</strong></p>
@@ -25,7 +26,8 @@
 <div class="col six">
 <div class="widget-box">
 <p><strong>Twitter</strong></p>
-[twitter_feed]
+<!-- widget id is obtain from the twitter user console -->
+[twitter_feed search_query="#3113" widget_id="xxxxxxxxxxxxxx"]
 </div>
 </div>
 </div>

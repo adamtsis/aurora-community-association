@@ -3,22 +3,23 @@ error_reporting(0);
 include_once('/../functions.php');
 
 if(isset($_GET['independent'])) {
-  echo get_fire_danger_rating_list();
+  echo get_fdr_list();
 } else {
   include_once('/../../../../wp-load.php');
   function fire_danger_rating($atts) {
     extract(shortcode_atts(array(
       'district' => ''
     ), $atts));
-    $content = '<div class="widget-data">'.get_fire_danger_rating_list($district).'</div>';
-    $content .= '<div class="widget-details"><abbr class="widget-time timeago" title="'.date('r').'">'.date().'</abbr><a class="refresh-widget" data-url="'.plugin_dir_url(__FILE__).basename(__FILE__).'?independent=1">Refresh</a></div>';
+    $content = '<div class="widget-data">'.get_fdr_list($district).'</div>';
+    $content .= '<div class="widget-details"><abbr class="widget-time timeago" title="'.date('r').'">'.date().'</abbr>';
+    $content .= '<a class="refresh-widget" data-url="'.plugin_dir_url(__FILE__).basename(__FILE__).'?independent=1">Refresh</a></div>';
     return $content;
   }
   add_shortcode('fire_danger_rating', 'fire_danger_rating');
 }
 
-function get_fire_danger_rating_list($district = "central") {
-  $data = getCFAFireDangerRating($district);
+function get_fdr_list($district = "central") {
+  $data = get_cfa_fdr($district);
 
   ob_start();
   echo $data;
@@ -26,27 +27,22 @@ function get_fire_danger_rating_list($district = "central") {
   return $list;
 }
 
-function getCFAFireDangerRating($district) {
+function get_cfa_fdr($district) {
 
   $ITEM_INDEX = 0;
   $MAX_ITEMS = 1;
   $data = "";
 
   $xmlUrl = "http://www.cfa.vic.gov.au/restrictions/$district-firedistrict_rss.xml"; // XML feed file/URL
-  //$xmlStr = file_get_contents($xmlUrl);
-
+ 
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $xmlUrl);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   $output = curl_exec($ch);
   curl_close($ch);
 
-  //An additional step to ensure the xml is in place.
-  //$headers = get_headers($xmlUrl);
-  //$code = $headers[0];
-  //if($code =~ '200') {
   $xmlObj = simplexml_load_string($output);
-  $arrXml = objectsIntoArray($xmlObj);
+  $arrXml = convert_objects_into_array($xmlObj);
 
   $timezone = "Australia/Melbourne";
   date_default_timezone_set($timezone);
@@ -60,7 +56,7 @@ function getCFAFireDangerRating($district) {
     $title = $arrXml[channel][item][$ITEM_INDEX][title];
     $description = $arrXml[channel][item][$ITEM_INDEX][description];
     // Get danger level
-    $ratingstr = explode("/images/fdr/central/", $description);
+    $ratingstr = explode("/images/fdr/$district/", $description);
     $ratingstr = explode(".gif", $ratingstr[1]);
     $ratingstr = explode("_tfb", $ratingstr[0]);
     $ratingstr = $ratingstr[0];
@@ -101,7 +97,7 @@ function getCFAFireDangerRating($district) {
     $ITEM_INDEX += 1;
   }
   }
-  //}
+
   return $data;
 }
 

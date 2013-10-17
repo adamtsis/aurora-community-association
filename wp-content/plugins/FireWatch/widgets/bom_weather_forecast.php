@@ -1,32 +1,14 @@
 <?php 
-    function objectsIntoArray($arrObjData, $arrSkipIndices = array()){
-        $arrData = array();
-        if (is_object($arrObjData)) 
-            $arrObjData = get_object_vars($arrObjData);
+error_reporting(0);
+include_once('/../functions.php');
 
-        if (is_array($arrObjData)) 
-            foreach ($arrObjData as $index => $value) {
-                if(is_object($value) || is_array($value)) 
-                    $value = objectsIntoArray($value, $arrSkipIndices); 
-
-                if(in_array($index, $arrSkipIndices)) 
-                     continue;
-
-                $arrData[$index] = $value;
-            }
-
-        return $arrData;
-    }
-
-  function getCFAFireDangerRating_forecast1($district) {
+function get_bom_weather_forecast() {
 
   $ITEM_INDEX = 0;
   $MAX_ITEMS = 4;
   $data = "";
 
-  // $xmlUrl = "http://www.cfa.vic.gov.au/restrictions/$district-firedistrict_rss.xml"; // XML feed file/URL
   $xmlUrl = "ftp://ftp2.bom.gov.au/anon/gen/fwo/IDV10753.xml";
-  //$xmlStr = file_get_contents($xmlUrl);
 
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $xmlUrl);
@@ -34,12 +16,8 @@
   $output = curl_exec($ch);
   curl_close($ch);
 
-  //An additional step to ensure the xml is in place.
-  //$headers = get_headers($xmlUrl);
-  //$code = $headers[0];
-  //if($code =~ '200') {
   $xmlObj = simplexml_load_string($output);
-  $arrXml = objectsIntoArray($xmlObj);
+  $arrXml = convert_objects_into_array($xmlObj);
 
   $index = 0;
   $TEMP_LOCATION = array(); 
@@ -62,15 +40,14 @@
   }
 
   return $TEMP_LOCATION;
-
+  
 }
-getCFAFireDangerRating_forecast1('warrandyte');
 
-$arr = getCFAFireDangerRating_forecast1('warrandyte');
-// print_r($arr);
+
+$arr = get_bom_weather_forecast();
+
 foreach($arr as $item) {
 
   print_r($item);
 }
-
 ?>

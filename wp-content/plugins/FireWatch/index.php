@@ -41,7 +41,7 @@ function warning_advise_feed($atts) {
   if (strlen($district) == 0)
     $district = "central";
 
-  $data = getCFAWarningAdviseFeed();
+  $data = get_cfa_warning_advise_feed();
 
   ob_start();
   echo $data;
@@ -57,7 +57,7 @@ function incident_feed($atts) {
   if (strlen($district) == 0)
     $district = "central";
 
-  $data = getCFAIncidentFeed();
+  $data = get_cfa_incident_feed();
 
   ob_start();
   echo $data;
@@ -98,7 +98,7 @@ function conditionally_add_scripts_and_styles($posts) {
 }
 
 
-function getCFAWarningAdviseFeed() {
+function get_cfa_warning_advise_feed() {
 
   $ITEM_INDEX = 0;
   $MAX_ITEMS = 3;
@@ -116,7 +116,7 @@ function getCFAWarningAdviseFeed() {
   //$code = $headers[0];
   //if($code =~ '200') {
   $xmlObj = simplexml_load_string($output);
-  $arrXml = objectsIntoArray($xmlObj);
+  $arrXml = convert_objects_into_array($xmlObj);
 
 
   if (count($arrXml['channel']['item']['title']) == 0) {
@@ -140,7 +140,7 @@ function getCFAWarningAdviseFeed() {
   return $data;
 }
 
-function getCFAIncidentFeed() {
+function get_cfa_incident_feed() {
 
   $ITEM_INDEX = 0;
   $MAX_ITEMS = 3;
@@ -154,11 +154,8 @@ function getCFAIncidentFeed() {
   $output = curl_exec($ch);
   curl_close($ch);
 
-  //$headers = get_headers($xmlUrl);
-  //$code = $headers[0];
-  //if($code =~ '200') {
   $xmlObj = simplexml_load_string($output);
-  $arrXml = objectsIntoArray($xmlObj);
+  $arrXml = convert_objects_into_array($xmlObj);
 
   if (count($arrXml['channel']['item']) == 0) {
     $data = "No Incidents have been recorded ";
@@ -177,7 +174,6 @@ function getCFAIncidentFeed() {
       $ITEM_INDEX += 1;
     }
   }
-  //}
   return $data;
 }
 

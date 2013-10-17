@@ -13,9 +13,7 @@
   Version: 1.2 - Last Updated: 12th January, 2013
 
 ========================================================================== */
-/* ==========================================================================
-/* --  Micro Clearfix, Resets and Common Classes
-   ========================================================================== */
+
 /* Micro Clearfix */
 .fdr-wrapper .clear:before, .fdr-wrapper .clear:after { content: ""; display: table; }
 .fdr-wrapper .clear:after { clear: both; }
@@ -25,11 +23,14 @@
 .fdr-wrapper .section { zoom: 1; }
 /* General Resets */
 .fdr-wrapper { font-size: 100%; }
+.fdr-wrapper .row { margin:0; }
 .fdr-wrapper button, .fdr-wrapper input, .fdr-wrapper select, .fdr-wrapper textarea { font-family: sans-serif; }
 .fdr-wrapper form, .fdr-wrapper fieldset, .fdr-wrapper a img { border: 0; }
 /* Common Classes */
 .fdr-wrapper .left { float: left; }
 .fdr-wrapper .right { float: right; }
+.fdr-wrapper .text-left { text-align:left; }
+.fdr-wrapper .text-right { text-align:right; }
 .fdr-wrapper .block { display: block; }
 .fdr-wrapper .inline-block {
   display: inline-block;
@@ -50,9 +51,6 @@
 .fdr-wrapper .nolist { list-style: none; }
 .fdr-wrapper .nopadding { padding: 0; }
 .fdr-wrapper .nomargin { margin: 0; }
-/* ==========================================================================
-/* 1.0 - Document Setup (body, links, headings, code, tables, forms etc)
-   ========================================================================== */
 /* Body */
 .fdr-wrapper {
   font-family: arial, helvetica, clean, sans-serif;
@@ -60,20 +58,17 @@
   font-size: 0.875rem;
   line-height: 22px;
   line-height: 1.375rem;
-  background-color: #ffffff;
   color: #222222;
   margin: 0;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
 /* Links */
-.fdr-wrapper a {
-  color: #ff3300;
+.fdr-wrapper a, .fdr-wrapper a:visited {
+  color: #222;
   text-decoration: underline;
 }
-.fdr-wrapper a:visited { color: #ff3300; }
-.fdr-wrapper a:hover { text-decoration: none; }
-.fdr-wrapper a:active { color: #333333; }
+.fdr-wrapper a:hover { text-decoration: none; color:#666; }
 
 /* 1.1 Headings - h1, h2, h3, h4, h5, h6 & other (if any)
    ========================================================================== */
@@ -193,19 +188,15 @@
   margin: 4px 0 4px 25px;
   padding: 0;
 }
-/* 1.5 Forms, Labels and Inputs
-   ========================================================================== */
-/* ==========================================================================
-/* 2.0 - Grid Layout (Responsive)
-   ========================================================================== */
+
 /* Sections & Content Blocks */
 .fdr-wrapper .section { position: relative; }
-.fdr-wrapper .row { margin-bottom: 1em; }
+.fdr-wrapper .row { display:block; }
 .fdr-wrapper .container { margin: 0 auto; }
 .fdr-wrapper .container-full { margin: 0 auto; }
 
 /* Fluid Grid */
-.fdr-wrapper .col { margin-left: 2%; float: left; }
+.fdr-wrapper .col { margin-left: 4%; float: left; position:relative; }
 .fdr-wrapper .col:first-child { margin-left: 0; }
 /* Columns */
 .fdr-wrapper .one { width: 6.333%; }
@@ -219,23 +210,107 @@
 .fdr-wrapper .nine { width: 73.0%; }
 .fdr-wrapper .ten { width: 81.333%; }
 .fdr-wrapper .eleven { width: 89.667%; }
-.fdr-wrapper .twelve { width: 100%; }
+.fdr-wrapper .twelve { width: 100%; } 
 
-.fdr-wrapper .widget-box { padding:15px; margin-bottom:15px; background: #f0f0f0; border-radius:5px; box-shadow:0 1px 7px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6); text-shadow:0 -1px 0 rgba(255,255,255,0.6); border:1px solid #e0e0e0; }
+.fdr-wrapper .widget-box { display:block; position:relative; padding:20px 25px 10px; margin-bottom:24px; background: #EEEEEE; border-radius:5px; border:1px solid #DFDFDE; }
+.fdr-wrapper .fdr-title { font-size:14px; font-weight:bold; margin-bottom:15px; line-height:15px; }
+.fdr-wrapper .widget-details { clear:both; position:relative; min-height:16px; font-size:11px; line-height:16px; padding-top:5px; margin-top:20px; }
+.fdr-wrapper .widget-details .col { line-height:16px; }
+.fdr-wrapper .timeago { border-bottom:0; position:absolute; bottom:1px; right:40px; line-height: 12px; font-size:11px; }
+.fdr-wrapper .refresh-widget { opacity:0.7; filter:opacity(70); width:16px; height:16px; position:absolute; bottom:0; right:0; text-indent:-9999px; background:url(images/refresh.png); cursor:pointer; }
+.fdr-wrapper .refresh-widget:hover { opacity:1.0; }
 
+.refresh-widget.refreshing { -webkit-animation: spin 1s infinite linear; -moz-animation: spin 1s infinite linear; -o-animation: spin 1s infinite linear; -ms-animation: spin 1s infinite linear; }
+@-webkit-keyframes spin { 0% { -webkit-transform: rotate(0deg);} 100% { -webkit-transform: rotate(360deg);} }
+@-moz-keyframes spin { 0% { -moz-transform: rotate(0deg);} 100% { -moz-transform: rotate(360deg);} }
+@-o-keyframes spin { 0% { -o-transform: rotate(0deg);} 100% { -o-transform: rotate(360deg);} }
+@-ms-keyframes spin { 0% { -ms-transform: rotate(0deg);} 100% { -ms-transform: rotate(360deg);} }
 
 /* Fire Danger Level Widget */
 .fdr-wrapper .fdr { margin-bottom: 15px; text-align:center; }
 .fdr-wrapper .fdr_links { display:none; } /* Links for other days disabled. Seperate Forecast Widget. */
 
-.fdr-wrapper .fdr .danger-level { padding:10px 20px; line-height:24px; display:inline-block; font-size:20px; xtext-align:center; margin:0 auto; }
-.fdr-wrapper .fdr-codered .danger-level { background:red; }
-.fdr-wrapper .fdr-extreme .danger-level { background:lightred; }
-.fdr-wrapper .fdr-severe .danger-level { background:orange; }
-.fdr-wrapper .fdr-veryhigh .danger-level { background:yellow; }
-.fdr-wrapper .fdr-high .danger-level { background:lightblue; }
+.fdr-wrapper .fdr .danger-level { padding:20px 25px; line-height:30px; font-size:28px; font-weight:700; text-transform:uppercase; display:inline-block; text-align:center; margin:0 auto; }
+.fdr-wrapper .fdr-codered .danger-level { background:#FB1309 url(img/code-red.png); color:#fff; }
+.fdr-wrapper .fdr-extreme .danger-level {
+background: #ff6666; /* Old browsers */
+background: -moz-linear-gradient(top,  #ff6666 0%, #ff0000 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff6666), color-stop(100%,#ff0000)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ff6666 0%,#ff0000 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ff6666 0%,#ff0000 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ff6666 0%,#ff0000 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ff6666 0%,#ff0000 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff6666', endColorstr='#ff0000',GradientType=0 ); /* IE6-9 */
+}
+.fdr-wrapper .fdr-severe .danger-level {
+background: #e8c265; /* Old browsers */
+background: -moz-linear-gradient(top,  #e8c265 0%, #ca722b 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e8c265), color-stop(100%,#ca722b)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #e8c265 0%,#ca722b 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #e8c265 0%,#ca722b 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #e8c265 0%,#ca722b 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #e8c265 0%,#ca722b 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8c265', endColorstr='#ca722b',GradientType=0 ); /* IE6-9 */
+}
+.fdr-wrapper .fdr-veryhigh .danger-level {
+background: #ffb920; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffb920 0%, #ffde45 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb920), color-stop(100%,#ffde45)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffb920 0%,#ffde45 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffb920 0%,#ffde45 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffb920 0%,#ffde45 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffb920 0%,#ffde45 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb920', endColorstr='#ffde45',GradientType=0 ); /* IE6-9 */
+}
+.fdr-wrapper .fdr-high .danger-level {
+background: #94caee; /* Old browsers */
+background: -moz-linear-gradient(top,  #94caee 0%, #4085d8 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#94caee), color-stop(100%,#4085d8)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #94caee 0%,#4085d8 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #94caee 0%,#4085d8 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #94caee 0%,#4085d8 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #94caee 0%,#4085d8 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#94caee', endColorstr='#4085d8',GradientType=0 ); /* IE6-9 */
+}
 .fdr-wrapper .fdr-lowtomoderate .danger-level { background:green; }
-.fdr-wrapper .fdr-low-moderate .danger-level { background:lightgreen; }
-.fdr-wrapper .fdr-noforecast .danger-level { background:gray; }
+.fdr-wrapper .fdr-low-moderate .danger-level {
+background: #c1d36f; /* Old browsers */
+background: -moz-linear-gradient(top,  #c1d36f 0%, #709a30 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c1d36f), color-stop(100%,#709a30)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #c1d36f 0%,#709a30 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #c1d36f 0%,#709a30 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #c1d36f 0%,#709a30 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #c1d36f 0%,#709a30 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1d36f', endColorstr='#709a30',GradientType=0 ); /* IE6-9 */
+}
+.fdr-wrapper .fdr-noforecast .danger-level { background:gray; font-size:24px; }
 
-.fdr-wrapper .fire-forecast #fdr_0 { display:none; } /* Hide the first/today's fire rating for forecast */
+/* Forecast */
+.fdr-wrapper .fire-forecast .col.six { height:40px; line-height:40px; font-size:17px; margin-bottom:8px; }
+.fdr-wrapper .fire-forecast .fdr .danger-level { font-size:15px; padding:5px; display:block; }
+.fdr-wrapper .fire-forecast .fdr-noforecast .danger-level { font-size:12px; }
+
+/* Current Weather Widget */
+.fdr-wrapper .temprature-title { font-size: 57px; line-height: 57px; font-weight: bold; margin:0; letter-spacing: -1px; }
+.fdr-wrapper .wind-title { font-size: 30px; line-height: 30px; margin-top:10px; margin-bottom:15px; font-weight: 400; letter-spacing: -1px; }
+
+/* FDR Chart Widget */
+.fdr-wrapper .chart-widget { background-color:#fff; }
+.fdr-wrapper .chart-widget:hover { box-shadow:inset 0 0 0 1px #ccc; }
+.fdr-wrapper .chart-widget span { display:block; text-align:center; font-weight:800; margin:9px -20px 4px; font-size:11px; }
+.fdr-wrapper .chart-widget br { display:none; }
+
+/* Widget Box Button */
+.widget-box.button-style { margin-bottom:10px; display:block; font-weight:bold; background:#fff; border:2px solid #DCDCDC; padding:15px 20px 15px 10px; text-align:center; font-size:16px; line-height:20px; }
+.widget-box.button-style .col { height:40px; }
+.widget-box.button-style.vic-roads .button-bg { background:url(img/vic-roads.jpg) no-repeat center center; background-size:100%; }
+.widget-box.button-style.cfa { background: #fff url(img/cfa.jpg) 35px 6px no-repeat; background-size:60px 60px ; }
+@media screen and (max-width:1000px) {
+  .row.cfa-buttons .columns { width:100% !important; }
+}
+@media screen and (max-width:479px) {
+  .row.cfa-buttons .widget-box.button-style { padding:15px 13px 15px 7px; font-size:15px; }
+}
+
+.fdr-wrapper .below-twitter { padding:10px 10px 0; line-height:1.5; font-size:13px; }
+.fdr-wrapper .below-twitter .yellow-button { background:#FFC70F; font-weight:700; font-size:15px; line-height:18px; padding:10px 15px; margin-top:10px; display:inline-block; text-decoration:none; }
