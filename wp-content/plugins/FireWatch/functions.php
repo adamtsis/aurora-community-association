@@ -9,7 +9,8 @@ function specific_no_wpautop($content) {
         return $content;
     }
 }
-function convert_objects_into_array($arrObjData, $arrSkipIndices = array()) {
+
+function objectsIntoArray($arrObjData, $arrSkipIndices = array()) {
   $arrData = array();
 
   // if input is object, convert into array
@@ -20,7 +21,7 @@ function convert_objects_into_array($arrObjData, $arrSkipIndices = array()) {
   if (is_array($arrObjData)) {
     foreach ($arrObjData as $index => $value) {
       if (is_object($value) || is_array($value)) {
-        $value = convert_objects_into_array($value, $arrSkipIndices); // recursive call
+        $value = objectsIntoArray($value, $arrSkipIndices); // recursive call
       }
       if (in_array($index, $arrSkipIndices)) {
         continue;
@@ -30,4 +31,5 @@ function convert_objects_into_array($arrObjData, $arrSkipIndices = array()) {
   }
   return $arrData;
 }
+
 ?>

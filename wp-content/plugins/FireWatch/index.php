@@ -13,7 +13,9 @@
   Author URI:
  */
 
-include_once("functions.php");
+error_reporting(1);
+
+include("functions.php");
 
 function fdr_wrapper( $atts, $content = null ) {
   return '<div class="fdr-wrapper">';
@@ -26,12 +28,11 @@ function fdr_wrapper_end( $atts, $content = null ) {
 add_shortcode('fdr_wrapper', 'fdr_wrapper');
 add_shortcode('fdr_wrapper_end', 'fdr_wrapper_end');
 
-
 include_once('widgets/fire_danger_rating.php');
-include_once('widgets/fire_danger_rating_forecast.php');
+// include_once('widgets/fire_danger_rating_forecast.php');
 include_once('widgets/weather_forecast.php');
+include_once('widgets/day_forecast.php');
 include_once('widgets/twitter_feed.php');
-
 
 function warning_advise_feed($atts) {
   extract(shortcode_atts(array(
@@ -116,7 +117,7 @@ function get_cfa_warning_advise_feed() {
   //$code = $headers[0];
   //if($code =~ '200') {
   $xmlObj = simplexml_load_string($output);
-  $arrXml = convert_objects_into_array($xmlObj);
+  $arrXml = objectsIntoArray($xmlObj);
 
 
   if (count($arrXml['channel']['item']['title']) == 0) {
@@ -155,7 +156,7 @@ function get_cfa_incident_feed() {
   curl_close($ch);
 
   $xmlObj = simplexml_load_string($output);
-  $arrXml = convert_objects_into_array($xmlObj);
+  $arrXml = objectsIntoArray($xmlObj);
 
   if (count($arrXml['channel']['item']) == 0) {
     $data = "No Incidents have been recorded ";

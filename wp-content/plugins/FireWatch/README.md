@@ -49,6 +49,14 @@ Fire Danger Rating Supported Districts and Regions
 * wimera (Wimera Region)
 
 
+Weather Information
+--------------------
+
+Woeid lookups
+
+[http://woeid.rosselliot.co.nz/](http://woeid.rosselliot.co.nz/)
+
+
 Twitter Integration
 --------------------
 

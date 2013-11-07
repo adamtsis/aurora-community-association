@@ -11,16 +11,16 @@ This page brings together information from the CFA, Bureau of Meteorology and Vi
       </div>
       <div class="widget-box">
         <p><strong>Current Weather Conditions </strong></p>
-        [weather_forecast temperature_unit="c"]
+        [weather_forecast temperature_unit="c" woeid="1106631"]
       </div>
       <div class="widget-box">
         <p><strong>Fire Danger Rating Forecast</strong></p>
-        [fire_danger_rating_forecast district="central" days="3"]
+        [day_forecast district="central" area="Watsonia"]
       </div>
 
       <div class="widget-box chart-widget" style="background: none repeat scroll 0 0 #FFFFFF">
         <a href="http://www.cfa.vic.gov.au/warnings-restrictions/about-fire-danger-ratings/" target="_blank"><br />
-          <img alt="" src="http://www.cfa.vic.gov.au/fm_files/img/warnings-restrictions/fdr-chart.gif" width="98%"><br />
+          <img alt="" src="http://www.cfa.vic.gov.au/fm_files/img/warnings-restrictions/fdr-chart.gif" width="98%" /><br />
           <span>CFA Website – Info About Fire Danger Ratings</span><br>
         </a>
       </div>
@@ -28,7 +28,7 @@ This page brings together information from the CFA, Bureau of Meteorology and Vi
     <div class="col six">
       <div class="widget-box">
         <p><strong>Twitter</strong></p>
-        [twitter_feed search_query="#3076fire&#3750fire" widget_id="xxxxxxxxxxxxxx"]
+        [twitter_feed search_query="#3076fire&amp;#3750fire" widget_id="xxxxxxxxxxxxxx"]
 
         The information in the Twitter feed above is sourced from members of the community. Use it only as one of many sources of information to assist your decision making.
 
