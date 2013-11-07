@@ -1,25 +1,31 @@
 <?php
-error_reporting(0);
-include_once('/../functions.php');
+define( 'FIREWATCH_ROOT_DIR', dirname(__FILE__) );
+include_once(FIREWATCH_ROOT_DIR.'/../functions.php');
+include("bom_weather_forecast.php");
 
 if(isset($_GET['independent'])) {
-  echo get_fdr_list();
+  $district = $_GET['district'];
+  $bom_area = $_GET['bom_area'];
+  echo get_forecast_list($district, $bom_area);
 } else {
-  include_once('/../../../../wp-load.php');
-  function fire_danger_rating_forecast($atts) {
+  include_once(FIREWATCH_ROOT_DIR.'/../../../../wp-load.php');
+  function day_forecast($atts) {
     extract(shortcode_atts(array(
       'district' => '',
-      'days' => ''
+      'bom_area' => '',
     ), $atts));
-    $content = '<div class="widget-data fire-forecast">'.get_fire_danger_rating_forecast_list($district, $days).'</div>';
-    $content .= '<div class="widget-details"><abbr class="widget-time timeago" title="'.date('r').'">'.date().'</abbr><a class="refresh-widget" data-url="'.plugin_dir_url(__FILE__).basename(__FILE__).'?independent=1">Refresh</a></div>';
+    $content = '<div class="widget-data fire-forecast">'.get_forecast_list($district, $bom_area).'</div>';
+    $content .= '<div class="widget-details">';
+    $content .= '<a target="_blank" onclick="javascript:_gaq.push([\'_trackEvent\',\'outbound-article\',\'http://www.cfa.vic.gov.au\']);" href="http://www.cfa.vic.gov.au/warnings-restrictions/'. $district .'-fire-district/">CFA Website</a>';
+    $content .= '<br><a target="_blank" onclick="javascript:_gaq.push([\'_trackEvent\',\'outbound-article\',\'http://www.bom.gov.au\']);" href="http://www.bom.gov.au/vic/forecasts/'. strtolower($bom_area) .'.shtml">BOM Website</a>';
+    $content .= '<abbr class="widget-time timeago" title="'.date('r').'">'.date().'</abbr><a class="refresh-widget" data-url="'.plugin_dir_url(__FILE__).basename(__FILE__).'?independent=1&district='. $district .'&bom_area='. $bom_area .'">Refresh</a></div>';
     return $content;
   }
-  add_shortcode('fire_danger_rating_forecast', 'fire_danger_rating_forecast');
+  add_shortcode('day_forecast', 'day_forecast');
 }
 
-function get_fire_danger_rating_forecast_list($district = "central", $days = "4") {
-  $data = get_weather_and_cfa_fdr_forecast($district, $days);
+function get_forecast_list($district, $bom_area) {
+  $data = get_weather_and_cfa_fdr_forecast($district, $bom_area);
 
   ob_start();
   echo $data;
@@ -27,10 +33,10 @@ function get_fire_danger_rating_forecast_list($district = "central", $days = "4"
   return $list;
 }
 
-function get_weather_and_cfa_fdr_forecast($district, $days) {
+function get_weather_and_cfa_fdr_forecast($district, $bom_area) {
 
   $ITEM_INDEX = 0;
-  $MAX_ITEMS = $days;
+  $MAX_ITEMS = 3;
   $data = "";
 
   $xmlUrl = "http://www.cfa.vic.gov.au/restrictions/$district-firedistrict_rss.xml"; // XML feed file/URL
@@ -42,19 +48,22 @@ function get_weather_and_cfa_fdr_forecast($district, $days) {
   curl_close($ch);
 
   $xmlObj = simplexml_load_string($output);
-  $arrXml = convert_objects_into_array($xmlObj);
+  $arrXml = objectsIntoArray($xmlObj);
 
   $timezone = "Australia/Melbourne";
   date_default_timezone_set($timezone);
 
-  $aest = strtotime($arrXml[channel][pubDate]);
+  $aest = strtotime($arrXml['channel']['pubDate']);
   //echo $arrXml[channel][pubDate];
+
+  $bom_weather_forecast = get_bom_weather_forecast($bom_area);
+
   if (count($arrXml['channel']['item']) == 0) {
     $data = "No Ratings are available.";
   } else {
   while ($ITEM_INDEX < $MAX_ITEMS) {
-    $title = $arrXml[channel][item][$ITEM_INDEX][title];
-    $description = $arrXml[channel][item][$ITEM_INDEX][description];
+    $title = $arrXml['channel']['item'][$ITEM_INDEX]['title'];
+    $description = $arrXml['channel']['item'][$ITEM_INDEX]['description'];
     // Get danger level
     $ratingstr = explode("/images/fdr/$district/", $description);
     $ratingstr = explode(".gif", $ratingstr[1]);
@@ -89,18 +98,24 @@ function get_weather_and_cfa_fdr_forecast($district, $days) {
         $rating = "Error Getting Forecast";
         break;
     }
+    $data .= '<div class="row">';
+    $data .= '<div class="col six">'. $bom_weather_forecast[$ITEM_INDEX+1] .'</div>';
+    $data .= '<div class="col six text-right">';
     $data .= '<div class="fdr fdr-'.$ratingstr.'" id="fdr_'.$ITEM_INDEX.'">';
     $data .= '<span class="danger-level">'.$rating.'</span>';
+    $data .= '</div>';
+    $data .= '</div>';
     $data .= '</div>';
 
 
     // Get danger level
-    $ratingstr = explode("/images/fdr/$district/", $description);
-    $ratingstr = explode(".gif", $ratingstr[1]);
-    $ratingstr = explode("_tfb", $ratingstr[0]);
-    $ratingstr = $ratingstr[0];
+    // $ratingstr = explode("/images/fdr/$district/", $description);
+    // $ratingstr = explode(".gif", $ratingstr[1]);
+    // $ratingstr = explode("_tfb", $ratingstr[0]);
+    // $ratingstr = $ratingstr[0];
 
-    $data .= $ratingstr;
+    // $data .= $ratingstr;
+    // $data .= '<span class="bom-weather">'.$bom_weather_forecast[$ITEM_INDEX+1].'</span>';
 
     if ($ITEM_INDEX > 0)
       $data .= "<div class='fdr_links' id='fdr_link_fdr_$ITEM_INDEX' onclick='showRating($ITEM_INDEX)'>$title</div>";

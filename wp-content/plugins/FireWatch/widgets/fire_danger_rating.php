@@ -1,9 +1,10 @@
 <?php
-error_reporting(0);
-include_once('/../functions.php');
+define( 'FIREWATCH_ROOT_DIR', dirname(__FILE__) );
+include_once(FIREWATCH_ROOT_DIR.'/../functions.php');
 
 if(isset($_GET['independent'])) {
-  echo get_fdr_list();
+  $district = $_GET['district'];
+  echo get_fdr_list($district);
 } else {
   include_once('/../../../../wp-load.php');
   function fire_danger_rating($atts) {
@@ -11,14 +12,16 @@ if(isset($_GET['independent'])) {
       'district' => ''
     ), $atts));
     $content = '<div class="widget-data">'.get_fdr_list($district).'</div>';
-    $content .= '<div class="widget-details"><abbr class="widget-time timeago" title="'.date('r').'">'.date().'</abbr>';
-    $content .= '<a class="refresh-widget" data-url="'.plugin_dir_url(__FILE__).basename(__FILE__).'?independent=1">Refresh</a></div>';
+    $content .= '<div class="widget-details">';
+    $content .= '<a target="_blank" onclick="javascript:_gaq.push([\'_trackEvent\',\'outbound-article\',\'http://www.cfa.vic.gov.au\']);" href="http://www.cfa.vic.gov.au/warnings-restrictions/' .$district. '-fire-district/">CFA Website</a>';
+    $content .= '<abbr class="widget-time timeago" title="'.date('r').'">'.date().'</abbr>';
+    $content .= '<a class="refresh-widget" data-url="'.plugin_dir_url(__FILE__).basename(__FILE__).'?independent=1&district='. $district .'">Refresh</a></div>';
     return $content;
   }
   add_shortcode('fire_danger_rating', 'fire_danger_rating');
 }
 
-function get_fdr_list($district = "central") {
+function get_fdr_list($district) {
   $data = get_cfa_fdr($district);
 
   ob_start();
@@ -34,7 +37,6 @@ function get_cfa_fdr($district) {
   $data = "";
 
   $xmlUrl = "http://www.cfa.vic.gov.au/restrictions/$district-firedistrict_rss.xml"; // XML feed file/URL
- 
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $xmlUrl);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -42,19 +44,20 @@ function get_cfa_fdr($district) {
   curl_close($ch);
 
   $xmlObj = simplexml_load_string($output);
-  $arrXml = convert_objects_into_array($xmlObj);
+  // $arrXml = $xmlObj->objectsIntoArray($xmlObj);
+  $arrXml = objectsIntoArray($xmlObj);
 
   $timezone = "Australia/Melbourne";
   date_default_timezone_set($timezone);
 
-  $aest = strtotime($arrXml[channel][pubDate]);
+  $aest = strtotime($arrXml['channel']['pubDate']);
   //echo $arrXml[channel][pubDate];
   if (count($arrXml['channel']['item']) == 0) {
     $data = "No Ratings are available.";
   } else {
   while ($ITEM_INDEX < $MAX_ITEMS) {
-    $title = $arrXml[channel][item][$ITEM_INDEX][title];
-    $description = $arrXml[channel][item][$ITEM_INDEX][description];
+    $title = $arrXml['channel']['item'][$ITEM_INDEX]['title'];
+    $description = $arrXml['channel']['item'][$ITEM_INDEX]['description'];
     // Get danger level
     $ratingstr = explode("/images/fdr/$district/", $description);
     $ratingstr = explode(".gif", $ratingstr[1]);
