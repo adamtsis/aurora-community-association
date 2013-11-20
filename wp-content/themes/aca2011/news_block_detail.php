@@ -2,7 +2,7 @@
 /**
  * Displays the community news
  * 4 posts only, excerpt only
- * 
+ *
  * @author Roger Liang
  * @date 01/07/2011
  */
@@ -17,7 +17,7 @@
 
 <div id="news-block-content">
     <table class="table-full-width">
-    <?php aca_set_filter('excerpt_length', 'aca_medium_excerpt_length', 'aca_long_excerpt_length'); //set excerpt length for community news?>
+    <?php aca_set_filter('excerpt_length', 'aca_intermediate_excerpt_length', 'aca_long_excerpt_length'); //set excerpt length for community news?>
     <?php $my_query = new WP_Query('category_name=community-news&posts_per_page=4'); ?>
     <?php if ($my_query->have_posts()) { $show_all = true; } else { $show_all = false; } ?>
     <?php $count = 0; //counter for the seperate line ?>

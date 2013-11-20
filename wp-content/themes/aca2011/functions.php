@@ -253,7 +253,11 @@ function aca_medium_excerpt_length ($length) {
  * @date 202/07/2011
  */
 function aca_short_excerpt_length ($length) {
-    return 20;
+    return 16;
+}
+
+function aca_intermediate_excerpt_length ($length) {
+    return 40;
 }
 
 /**
