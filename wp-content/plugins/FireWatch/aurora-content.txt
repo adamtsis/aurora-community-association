@@ -28,9 +28,10 @@ This page brings together information from the CFA, Bureau of Meteorology and Vi
     <div class="col six">
       <div class="widget-box">
         <p><strong>Twitter</strong></p>
-        [twitter_feed search_query="#3076fire&amp;#3750fire" widget_id="xxxxxxxxxxxxxx"]
-
-        The information in the Twitter feed above is sourced from members of the community. Use it only as one of many sources of information to assist your decision making.
+        [twitter_feed search_query="#3076fire&amp;#3750fire" widget_id="389580341368733696"]
+          <div class="below-twitter">The information in the Twitter feed above is sourced from members of the community. Use it only as one of many sources of information to assist your decision making.<br>
+             <a class="yellow-button" href="http://www.aurora.asn.au/fire-watch/information-on-twitter/">Information &amp; Instructions</a>
+          </div>
 
       </div>
     </div>

@@ -1,13 +1,12 @@
 <?php
-add_filter('the_content', 'specific_no_wpautop', 9);
 function specific_no_wpautop($content) {
-    global $post;
-    if (is_page(2340)) { // or whatever other condition you like
-        remove_filter( 'the_content', 'wpautop' );
-        return $content;
-    } else {
-        return $content;
-    }
+   global $post;
+   if (is_page(2340)) { // or whatever other condition you like
+       remove_filter( 'the_content', 'wpautop' );
+       return $content;
+   } else {
+       return $content;
+   }
 }
 
 function objectsIntoArray($arrObjData, $arrSkipIndices = array()) {

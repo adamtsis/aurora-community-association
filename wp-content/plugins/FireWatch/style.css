@@ -287,7 +287,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1d36f', end
 
 /* Forecast */
 .fdr-wrapper .fire-forecast .col.six { height:40px; line-height:40px; font-size:17px; margin-bottom:8px; }
-.fdr-wrapper .fire-forecast .fdr .danger-level { font-size:12px; padding:5px; display:block; }
+.fdr-wrapper .fire-forecast .fdr .danger-level { font-size:15px; padding:5px; display:block; }
 .fdr-wrapper .fire-forecast .fdr-noforecast .danger-level { font-size:12px; }
 
 /* Current Weather Widget */

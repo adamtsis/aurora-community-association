@@ -25,8 +25,8 @@ function get_bom_weather_forecast($bom_area) {
   foreach($xmlObj->forecast->area as $area)
   {
     if($area['description'] == $bom_area) {
-      $TEMP_LOCATION[$ITEM_INDEX] = "";
       foreach($area->{"forecast-period"} as $element_type) {
+        $TEMP_LOCATION[$ITEM_INDEX] = "";
         $date = $element_type['start-time-local'];
         $low_temp = $element_type->element[1];
         $high_temp = $element_type->element[2];

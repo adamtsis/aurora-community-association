@@ -71,6 +71,7 @@ add_shortcode('incident_feed', 'incident_feed');
 
 // ----------------------------------
 
+add_filter('the_content', 'specific_no_wpautop', 9);
 add_filter('the_posts', 'conditionally_add_scripts_and_styles'); // the_posts gets triggered before wp_head
 
 function conditionally_add_scripts_and_styles($posts) {

@@ -101,8 +101,9 @@ function get_cfa_fdr_forecast($district) {
 
     $data .= $ratingstr;
 
-    if ($ITEM_INDEX > 0)
-      $data .= "<div class='fdr_links' id='fdr_link_fdr_$ITEM_INDEX' onclick='showRating($ITEM_INDEX)'>$title</div>";
+    if ($ITEM_INDEX > 0) {
+      $data .= "<div class='fdr_links' id='fdr_link_fdr_$ITEM_INDEX' onclick='showRating($ITEM_INDEX)'>$title</div>";      
+    }
     $ITEM_INDEX += 1;
   }
   }
