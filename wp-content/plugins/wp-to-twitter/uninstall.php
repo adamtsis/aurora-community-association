@@ -86,4 +86,5 @@ delete_option( 'jd_keyword_format' );
 //Version
 delete_option( 'wp_to_twitter_version' );
 delete_option( 'wpt_authentication_missing' );
+delete_option( 'wpt_http' );
 }

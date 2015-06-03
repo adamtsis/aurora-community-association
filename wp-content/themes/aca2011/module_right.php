@@ -2,7 +2,7 @@
 /**
  * Displays the community news
  * 4 posts only, excerpt only
- * 
+ *
  * @author Roger Liang
  * @date 01/07/2011
  */

@@ -1,5 +1,15 @@
 <?php
 
+function promotion_slider() {
+	$value = false;
+	$args = func_get_args();
+	if( $method = array_shift( $args ) ) {
+		$API = new Promotion_Slider_API();
+		$value = $API->$method( $args );
+	}
+	return $value;
+}
+
 // Add actions
 add_action('promoslider_content', 'promoslider_display_image');
 add_action('promoslider_nav', 'promoslider_display_nav');
@@ -110,5 +120,3 @@ function promoslider_display_excerpt($values){
 			return;
 	}
 }
-
-?>

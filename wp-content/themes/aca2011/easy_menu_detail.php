@@ -8,6 +8,7 @@
         <td class="align-middle align-right"><a href="http://www.aurora.asn.au/fire-watch"><img src="<?php bloginfo('template_url') ?>/images/fire_watch.png" alt="Fire Watch"/></a></td>
         <td class="align-middle align-left"><a href="http://www.aurora.asn.au/fire-watch">&nbsp;Fire Watch</a></td>
         <td class="align-middle align-right"><a href="http://www.aurora.asn.au/wp-login.php?action=register"><img src="<?php bloginfo('template_url') ?>/images/email_icon.png" alt="News Letter Sign Up"/></a></td>
-        <td class="align-middle align-left"><a href="http://www.aurora.asn.au/wp-login.php?action=register">&nbsp;Newsletter<br />&nbsp;Sign Up</a></td>
+        <!--<td class="align-middle align-left"><a href="http://www.aurora.asn.au/wp-login.php?action=register">&nbsp;Newsletter<br />&nbsp;Sign Up</a></td> -->
+        <td class="align-middle align-left"><a href="http://www.aurora.asn.au/newsletter-sign-up/">&nbsp;Newsletter<br />&nbsp;Sign Up</a></td>
     </tr>
 </table>

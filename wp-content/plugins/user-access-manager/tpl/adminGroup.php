@@ -9,7 +9,7 @@
  * @category  UserAccessManager
  * @package   UserAccessManager
  * @author    Alexander Schneider <alexanderschneider85@googlemail.com>
- * @copyright 2008-2010 Alexander Schneider
+ * @copyright 2008-2013 Alexander Schneider
  * @license   http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  * @version   SVN: $Id$
  * @link      http://wordpress.org/extend/plugins/user-access-manager/
@@ -18,64 +18,60 @@
 /**
  * Inserts or update a user group.
  * 
- * @param integer $userGroupId The id of the user group.
+ * @param integer $iUserGroupId The _iId of the user group.
  * 
  * @return null
  */
-function insertUpdateGroup($userGroupId)
+function insertUpdateGroup($iUserGroupId)
 {
-    global $userAccessManager;
+    global $oUserAccessManager;
     
-    if (empty($_POST) 
-        || !wp_verify_nonce($_POST['uamInsertUpdateGroupNonce'], 'uamInsertUpdateGroup')
-    ) {
+    if (empty($_POST) || !wp_verify_nonce($_POST['uamInsertUpdateGroupNonce'], 'uamInsertUpdateGroup')) {
          wp_die(TXT_UAM_NONCE_FAILURE);
     }
     
-    if ($userGroupId != null) {
-        $uamUserGroup 
-            = $userAccessManager->getAccessHandler()->getUserGroups($userGroupId);
+    if ($iUserGroupId != null) {
+        $oUamUserGroup = $oUserAccessManager->getAccessHandler()->getUserGroups($iUserGroupId);
     } else {
-        $uamUserGroup 
-            = new UamUserGroup($userAccessManager->getAccessHandler(), null);
+        $oUamUserGroup = new UamUserGroup($oUserAccessManager->getAccessHandler(), null);
     }
 
-    $uamUserGroup->setGroupName($_POST['userGroupName']);
-	$uamUserGroup->setGroupDesc($_POST['userGroupDescription']);
-	$uamUserGroup->setReadAccess($_POST['readAccess']);
-	$uamUserGroup->setWriteAccess($_POST['writeAccess']);
-	$uamUserGroup->setIpRange($_POST['ipRange']);
+    $oUamUserGroup->setGroupName($_POST['userGroupName']);
+	$oUamUserGroup->setGroupDesc($_POST['userGroupDescription']);
+	$oUamUserGroup->setReadAccess($_POST['readAccess']);
+	$oUamUserGroup->setWriteAccess($_POST['writeAccess']);
+	$oUamUserGroup->setIpRange($_POST['ipRange']);
         
     if (isset($_POST['roles'])) {
-        $roles = $_POST['roles'];
+        $aRoles = $_POST['roles'];
     } else {
-        $roles = null;
+        $aRoles = null;
     }
 
-    $uamUserGroup->unsetObjects('role', true);
+    $oUamUserGroup->unsetObjects('role', true);
     
-    if ($roles) {
-        foreach ($roles as $role) {
-            $uamUserGroup->addObject('role', $role);
+    if ($aRoles) {
+        foreach ($aRoles as $role) {
+            $oUamUserGroup->addObject('role', $role);
         }
     }
     
-    $uamUserGroup->save();
+    $oUamUserGroup->save();
     
-    $userAccessManager->getAccessHandler()->addUserGroup($uamUserGroup);
+    $oUserAccessManager->getAccessHandler()->addUserGroup($oUamUserGroup);
 }
 
 /**
- * Prints the group formular.
+ * Prints the group form.
  * 
- * @param integer $groupId The given group id.
+ * @param integer $sGroupId The given group _iId.
  * 
  * @return null
  */
-function getPrintEditGroup($groupId = null)
+function getPrintEditGroup($sGroupId = null)
 {
-    global $userAccessManager;
-    $uamUserGroup = $userAccessManager->getAccessHandler()->getUserGroups($groupId);
+    global $oUserAccessManager;
+    $oUamUserGroup = $oUserAccessManager->getAccessHandler()->getUserGroups($sGroupId);
     ?>
 	<form method="post" action="<?php 
 	    echo reset(
@@ -85,10 +81,10 @@ function getPrintEditGroup($groupId = null)
 	<?php
 	wp_nonce_field('uamInsertUpdateGroup', 'uamInsertUpdateGroupNonce');
 	
-    if (isset($groupId)) {
+    if (isset($sGroupId)) {
         ?> 
     	<input type="hidden" value="updateGroup" name="action" /> 
-    	<input type="hidden" value="<?php echo $groupId; ?>" name="userGroupId" />
+    	<input type="hidden" value="<?php echo $sGroupId; ?>" name="userGroupId" />
 		<?php
     } else {
         ?> 
@@ -102,8 +98,8 @@ function getPrintEditGroup($groupId = null)
     				<th valign="top" scope="row"><?php echo TXT_UAM_GROUP_NAME; ?></th>
     				<td>
     					<input type="text" size="40" value="<?php
-    if (isset($groupId)) {
-        echo $uamUserGroup->getGroupName();
+    if (isset($sGroupId)) {
+        echo $oUamUserGroup->getGroupName();
     } 
                         ?>" id="userGroupName" name="userGroupName" /><br />
 		                <?php echo TXT_UAM_GROUP_NAME_DESC; ?>
@@ -113,8 +109,8 @@ function getPrintEditGroup($groupId = null)
             		<th valign="top" scope="row"><?php echo TXT_UAM_GROUP_DESC; ?></th>
             		<td>
             			<input type="text" size="40" value="<?php 
-    if (isset($groupId)) { 
-        echo $uamUserGroup->getGroupDesc(); 
+    if (isset($sGroupId)) {
+        echo $oUamUserGroup->getGroupDesc();
     } 
                         ?>" id="userGroupDescription" name="userGroupDescription" /><br />
             		    <?php echo TXT_UAM_GROUP_DESC_DESC; ?>
@@ -123,8 +119,8 @@ function getPrintEditGroup($groupId = null)
 				<tr class="form-field form-required">
                 	<th valign="top" scope="row"><?php echo TXT_UAM_GROUP_IP_RANGE; ?></th>
                 	<td><input type="text" size="40" value="<?php
-    if (isset($groupId)) {
-        echo $uamUserGroup->getIpRange('string');
+    if (isset($sGroupId)) {
+        echo $oUamUserGroup->getIpRange('string');
     } 
                         ?>" id="ipRange" name="ipRange" /><br />
                 		<?php echo TXT_UAM_GROUP_IP_RANGE_DESC; ?>
@@ -136,8 +132,8 @@ function getPrintEditGroup($groupId = null)
                 		<select name="readAccess">
                 			<option value="group"
 	<?php
-    if (isset($groupId)) {
-        if ($uamUserGroup->getReadAccess() == "group") {
+    if (isset($sGroupId)) {
+        if ($oUamUserGroup->getReadAccess() == "group") {
             echo 'selected="selected"';
         }
     } 
@@ -147,8 +143,8 @@ function getPrintEditGroup($groupId = null)
     						</option>
 							<option value="all"
 	<?php
-    if (isset($groupId)) {
-        if ($uamUserGroup->getReadAccess() == "all") {
+    if (isset($sGroupId)) {
+        if ($oUamUserGroup->getReadAccess() == "all") {
             echo 'selected="selected"';
         }
     } 
@@ -166,8 +162,8 @@ function getPrintEditGroup($groupId = null)
 						<select name="writeAccess">
 							<option value="group"
 	<?php
-    if (isset($groupId)) {
-        if ($uamUserGroup->getWriteAccess() == "group") {
+    if (isset($sGroupId)) {
+        if ($oUamUserGroup->getWriteAccess() == "group") {
             echo 'selected="selected"';
         }
     } 
@@ -177,8 +173,8 @@ function getPrintEditGroup($groupId = null)
         					</option>
     						<option value="all" 
 	<?php 
-    if (isset($groupId)) {
-        if ($uamUserGroup->getWriteAccess() == "all") {
+    if (isset($sGroupId)) {
+        if ($oUamUserGroup->getWriteAccess() == "all") {
             echo 'selected="selected"';
         }
     } 
@@ -197,8 +193,8 @@ function getPrintEditGroup($groupId = null)
 	<?php
     global $wp_roles;
     
-    if (isset($groupId)) {
-        $groupRoles = $uamUserGroup->getObjectsFromType('role');
+    if (isset($sGroupId)) {
+        $aGroupRoles = $oUamUserGroup->getObjectsFromType('role');
     }
     
     foreach ($wp_roles->role_names as $role => $name) {
@@ -208,7 +204,7 @@ function getPrintEditGroup($groupId = null)
 								<input id="role-<?php echo $role; ?>" type="checkbox"
 			<?php
 			
-            if (isset($groupRoles[$role])) {
+            if (isset($aGroupRoles[$role])) {
                 echo 'checked="checked"';
             } 
             ?>
@@ -229,7 +225,7 @@ function getPrintEditGroup($groupId = null)
 		</table>
 		<p class="submit">
 			<input type="submit" value="<?php
-    if (isset($groupId)) {
+    if (isset($sGroupId)) {
         echo TXT_UAM_UPDATE_GROUP;
     } else {
         echo TXT_UAM_ADD_GROUP;
@@ -270,10 +266,10 @@ if ($postAction == 'delgroup') {
     }
 
     if (isset($delIds)) {
-        global $userAccessManager;
+        global $oUserAccessManager;
         
         foreach ($delIds as $delId) {
-            $userAccessManager->getAccessHandler()->deleteUserGroup($delId);
+            $oUserAccessManager->getAccessHandler()->deleteUserGroup($delId);
         }
         ?>
         <div class="updated">
@@ -342,57 +338,55 @@ if (!$editGroup) {
             	</thead>
         	<tbody>
     <?php
-    if (isset($_GET['page'])) {
-        $curAdminPage = $_GET['page'];
-    }
+    $sCurAdminPage = isset($_GET['page']) ? $_GET['page'] : '';
     
-    global $userAccessManager;
-    $uamUserGroups = $userAccessManager->getAccessHandler()->getUserGroups();
+    global $oUserAccessManager;
+    $aUamUserGroups = $oUserAccessManager->getAccessHandler()->getUserGroups();
     
-    if (isset($uamUserGroups)) {
-        foreach ($uamUserGroups as $uamUserGroup) {
+    if (isset($aUamUserGroups)) {
+        foreach ($aUamUserGroups as $oUamUserGroup) {
             ?>
-        		<tr class="alternate" id="group-<?php echo $uamUserGroup->getId(); ?>">
+        		<tr class="alternate" id="group-<?php echo $oUamUserGroup->getId(); ?>">
         			<th class="check-column" scope="row">
-        				<input type="checkbox" value="<?php echo $uamUserGroup->getId(); ?>" name="delete[]" />
+        				<input type="checkbox" value="<?php echo $oUamUserGroup->getId(); ?>" name="delete[]" />
         			</th>
         			<td>
         				<strong>
-        					<a href="?page=<?php echo $curAdminPage; ?>&amp;action=editGroup&amp;id=<?php echo $uamUserGroup->getId(); ?>">
-        					    <?php echo $uamUserGroup->getGroupName(); ?>
+        					<a href="?page=<?php echo $sCurAdminPage; ?>&amp;action=editGroup&amp;id=<?php echo $oUamUserGroup->getId(); ?>">
+        					    <?php echo $oUamUserGroup->getGroupName(); ?>
         					</a>
         				</strong>
         			</td>
-        			<td><?php echo $uamUserGroup->getGroupDesc() ?></td>
+        			<td><?php echo $oUamUserGroup->getGroupDesc() ?></td>
         			<td>
             <?php 
-            if ($uamUserGroup->getReadAccess() == "all") {
+            if ($oUamUserGroup->getReadAccess() == "all") {
                 echo TXT_UAM_ALL;
-            } elseif ($uamUserGroup->getReadAccess() == "group") {
+            } elseif ($oUamUserGroup->getReadAccess() == "group") {
                 echo TXT_UAM_ONLY_GROUP_USERS;
             } 
             ?>
                     </td>
         			<td>
     		<?php
-            if ($uamUserGroup->getWriteAccess() == "all") {
+            if ($oUamUserGroup->getWriteAccess() == "all") {
                 echo TXT_UAM_ALL;
-            } elseif ($uamUserGroup->getWriteAccess() == "group") {
+            } elseif ($oUamUserGroup->getWriteAccess() == "group") {
                 echo TXT_UAM_ONLY_GROUP_USERS;
             } 
             ?>
                 	</td>
                 	        			<td>
     		<?php
-            if ($uamUserGroup->getObjectsFromType('role')) {
+            if ($oUamUserGroup->getObjectsFromType('role')) {
                 ?>
                 		<ul>
                 <?php
-                foreach ($uamUserGroup->getObjectsFromType('role') as $key => $role) {
+                foreach ($oUamUserGroup->getObjectsFromType('role') as $sKey => $sRole) {
                     ?>
                 			<li>
                     <?php
-                    echo $key;
+                    echo $sKey;
                     ?>
                 			</li>
                     <?php
@@ -407,15 +401,15 @@ if (!$editGroup) {
                 	</td>
         			<td>
     		<?php
-            if ($uamUserGroup->getIpRange()) {
+            if ($oUamUserGroup->getIpRange()) {
                 ?>
                 		<ul>
                 <?php
-                foreach ($uamUserGroup->getIpRange() as $ipRange) {
+                foreach ($oUamUserGroup->getIpRange() as $sIpRange) {
                     ?>
                 			<li>
                     <?php
-                    echo $ipRange;
+                    echo $sIpRange;
                     ?>
                 			</li>
                     <?php

@@ -1,3 +1,5 @@
+.postbox-container.main { margin-right: 290px; float: none; }
+.postbox-container.sidebar { width: 270px; margin-left: -270px; float: right; }
 .postbox ul, .postbox li { list-style-type:disc; margin-left:10px; }
 .postbox .inside { padding:0 10px; }
 #donate { border:2px solid green; }

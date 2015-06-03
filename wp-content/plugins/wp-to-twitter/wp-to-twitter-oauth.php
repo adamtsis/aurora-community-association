@@ -41,7 +41,7 @@ if ( !$auth ) {
 	if ( !empty( $ack ) && !empty( $acs ) && !empty( $ot ) && !empty( $ots ) ) {	
 		require_once( plugin_dir_path(__FILE__).'wpt_twitter_oauth.php' );
 		$connection = new jd_TwitterOAuth( $ack,$acs,$ot,$ots );
-		$connection->useragent = 'WP to Twitter http://www.joedolson.com/articles/wp-to-twitter';
+		$connection->useragent = 'WP to Twitter https://www.joedolson.com/wp-to-twitter';
 		return $connection;
 	} else {
 		return false;
@@ -87,11 +87,12 @@ switch ( $post['oauth_settings'] ) {
 				}
 				$message = 'failed';
 				if ( $connection = wtt_oauth_connection( $auth ) ) {
-					$protocol = ( get_option( 'wpt_http' ) == '1' )?'http:':'https:';
-					$data = $connection->get($protocol.'//api.twitter.com/1.1/account/verify_credentials.json');
+					$data = $connection->get( 'https://api.twitter.com/1.1/account/verify_credentials.json' );
 					if ( $connection->http_code != '200' ) {
 						$data = json_decode( $data );
-						update_option( 'wpt_error', $data->errors[0]->message );
+						$code = "<a href='https://dev.twitter.com/docs/error-codes-responses'>".$data->errors[0]->code."</a>";
+						$error = $data->errors[0]->message;
+						update_option( 'wpt_error', "$code: $error" );
 					} else {
 						delete_option( 'wpt_error' );
 					}
@@ -169,8 +170,7 @@ if ( !$auth ) {
 	echo '<div class="postbox">';
 }
 $server_time = date( DATE_COOKIE );
-$protocol = ( get_option( 'wpt_http' ) == '1' )?'http:':'https:';
-$response = wp_remote_get( "$protocol//api.twitter.com/1.1/" );
+$response = wp_remote_get( "https://twitter.com/", array( 'timeout'=>1, 'redirection'=>1 ) );
 if ( is_wp_error( $response ) ) {
 	$warning = '';
 	$error = $response->errors;
@@ -183,7 +183,7 @@ if ( is_wp_error( $response ) ) {
 		}
 		$warning .= "</ul>";
 	}
-	$ssl = __("Connection Problems? Try <a href='#wpt_http'>switching to <code>http</code> queries</a>.",'wp-to-twitter');
+	$ssl = __("Connection Problems? If you're getting an SSL related error, you'll need to contact your host.",'wp-to-twitter');
 	$date = __("There was an error querying Twitter's servers",'wp-to-twitter');
 	$errors = "<p>".$ssl."</p>".$warning;
 } else {
@@ -210,7 +210,8 @@ $nonce = ( !$auth )?wp_nonce_field('wp-to-twitter-nonce', '_wpnonce', true, fals
 	
 		$submit = ( !$auth )?'<p class="submit"><input type="submit" name="submit" class="button-primary" value="'.__('Connect to Twitter', 'wp-to-twitter').'" /></p>':'';
 		print('	
-			<h3>'.__('Connect to Twitter','wp-to-twitter').'</h3>
+			<div class="handlediv"><span class="screen-reader-text">Click to toggle</span></div>
+			<h3 class="hndle"><span>'.__('Connect to Twitter','wp-to-twitter').'</span></h3>
 			<div class="inside '.$class.'">
 			<div class="notes">
 			<h4>'.__('WP to Twitter Set-up','wp-to-twitter').'</h4>
@@ -218,9 +219,7 @@ $nonce = ( !$auth )?wp_nonce_field('wp-to-twitter-nonce', '_wpnonce', true, fals
 			'.$errors.'
 			<p>'.__('Your server timezone (should be UTC,GMT,Europe/London or equivalent):','wp-to-twitter').' '.date_default_timezone_get().'</p>
 			</div>
-			'.$form.'
-				<fieldset class="options">
-					<h4>'.__('1. Register this site as an application on ', 'wp-to-twitter') . '<a href="http://dev.twitter.com/apps/new" target="_blank">'.__('Twitter\'s application registration page','wp-to-twitter').'</a></h4>
+					<h4>'.__('1. Register this site as an application on ', 'wp-to-twitter') . '<a href="https://apps.twitter.com/app/new/" target="_blank">'.__('Twitter\'s application registration page','wp-to-twitter').'</a></h4>
 						<ul>
 						<li>'.__('If you\'re not currently logged in to Twitter, log-in to the account you want associated with this site' , 'wp-to-twitter').'</li>
 						<li>'.__('Your application name cannot include the word "Twitter."' , 'wp-to-twitter').'</li>
@@ -228,21 +227,25 @@ $nonce = ( !$auth )?wp_nonce_field('wp-to-twitter-nonce', '_wpnonce', true, fals
 						<li>'.__('The WebSite and Callback URL should be ' , 'wp-to-twitter').'<strong>'.  get_bloginfo( 'url' ) .'</strong></li>					
 						</ul>
 					<p><em>'.__('Agree to the Developer Rules of the Road and continue.','wp-to-twitter').'</em></p>
-					<h4>'.__('2. Switch to the "Settings" tab in Twitter apps','wp-to-twitter').'. '.__('<em>Do NOT create your access token yet.</em>','wp-to-twitter').'</h4>
+					<h4>'.__( '2. Switch to the "Permissions" tab in Twitter apps', 'wp-to-twitter' ).'</h4>
 						<ul>
 						<li>'.__('Select "Read and Write" for the Application Type' , 'wp-to-twitter').'</li>
 						<li>'.__('Update the application settings' , 'wp-to-twitter').'</li>
-						<li>'.__('Return to the Details tab and create your access token.','wp-to-twitter').'</li>		
-						</ul>	
-					<p><em>'.__('Once you have registered your site as an application, you will be provided with four keys.' , 'wp-to-twitter').'</em></p>
-					<h4>'.__('3. Copy and paste your consumer key and consumer secret into the fields below' , 'wp-to-twitter').'</h4>
+						</ul>
+					<h4>'.__('3. Switch to the API Keys tab and regenerate your API keys, then create your access token.','wp-to-twitter' ).'</h4>
+						<ul>
+						<li>'.__('Copy your API key and API secret from the top section.' , 'wp-to-twitter').'</li>
+						<li>'.__('Copy your Access token and Access token secret from the bottom section.' , 'wp-to-twitter').'</li>
+						</ul>
+			'.$form.'
+				<fieldset class="options">						
 					<div class="tokens">
 					<p>
-						<label for="wtt_app_consumer_key">'.__('Twitter Consumer Key', 'wp-to-twitter').'</label>
+						<label for="wtt_app_consumer_key">'.__('API Key', 'wp-to-twitter').'</label>
 						<input type="text" size="45" name="wtt_app_consumer_key" id="wtt_app_consumer_key" value="'.$ack.'" />
 					</p>
 					<p>
-						<label for="wtt_app_consumer_secret">'.__('Twitter Consumer Secret', 'wp-to-twitter').'</label>
+						<label for="wtt_app_consumer_secret">'.__('API Secret', 'wp-to-twitter').'</label>
 						<input type="text" size="45" name="wtt_app_consumer_secret" id="wtt_app_consumer_secret" value="'.$acs.'" />
 					</p>
 					</div>
@@ -279,15 +282,16 @@ $nonce = ( !$auth )?wp_nonce_field('wp-to-twitter-nonce', '_wpnonce', true, fals
 		} else {
 			$submit = '<input type="checkbox" name="oauth_settings" value="wtt_twitter_disconnect" id="disconnect" /> <label for="disconnect">'.__('Disconnect your WordPress and Twitter Account','wp-to-twitter').'</label>';
 		}
-		$warning =  ( get_option('wpt_authentication_missing') )?'<p>'.__('<strong>Troubleshooting tip:</strong> Connected, but getting a error that your Authentication credentials are missing or incorrect? Check that your Access token has read and write permission. If not, you\'ll need to create a new token. <a href="http://www.joedolson.com/articles/wp-to-twitter/support-2/#q1">Read the FAQ</a>','wp-to-twitter').'</p>':'';
+		$warning =  ( get_option('wpt_authentication_missing') )?'<p>'.__('<strong>Troubleshooting tip:</strong> Connected, but getting a error that your Authentication credentials are missing or incorrect? Check that your Access token has read and write permission. If not, you\'ll need to create a new token. <a href="http://www.joedolson.com/wp-to-twitter/support-2/#q1">Read the FAQ</a>','wp-to-twitter').'</p>':'';
 		if ( !is_wp_error( $response ) ) { 
 			$diff = ( abs( time() - strtotime($response['headers']['date']) ) > 300 )?'<p> '.__( 'Your time stamps are more than 5 minutes apart. Your server could lose its connection with Twitter.','wp-to-twitter').'</p>':''; 
 		} else { 
 			$diff = __( 'WP to Twitter could not contact Twitter\'s remote server. Here is the error triggered: ','wp-to-twitter' ).$errors;
 		}
 
-		print('	
-			<h3>'.__('Disconnect from Twitter','wp-to-twitter').'</h3>
+		print('
+			<div class="handlediv"><span class="screen-reader-text">Click to toggle</span></div>
+			<h3 class="hndle"><span>'.__('Disconnect from Twitter','wp-to-twitter').'</span></h3>
 			<div class="inside '.$class.'">
 			'.$form.'
 				<div id="wtt_authentication_display">

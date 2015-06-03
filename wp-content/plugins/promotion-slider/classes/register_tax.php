@@ -54,5 +54,3 @@ if ( !class_exists('wordpress_custom_taxonomy') ) {
 	}
 
 }
-
-?>

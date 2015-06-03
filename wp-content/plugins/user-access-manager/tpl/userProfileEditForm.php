@@ -9,27 +9,27 @@
  * @category  UserAccessManager
  * @package   UserAccessManager
  * @author    Alexander Schneider <alexanderschneider85@googlemail.com>
- * @copyright 2008-2010 Alexander Schneider
+ * @copyright 2008-2013 Alexander Schneider
  * @license   http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
  * @version   SVN: $Id$
  * @link      http://wordpress.org/extend/plugins/user-access-manager/
  */
 
-global $userAccessManager, $wpdb;
-$uamUserGroups = &$userAccessManager->getAccessHandler()->getUserGroups();
+global $oUserAccessManager, $wpdb;
+$aUamUserGroups = $oUserAccessManager->getAccessHandler()->getUserGroups();
     
-$objectType = 'user';
+$sObjectType = 'user';
 
 if (isset($_GET['user_id'])) {
-    $objectId = $_GET['user_id'];
-    $editUserData = get_userdata($objectId);
+    $iObjectId = $_GET['user_id'];
+    $oEditUserData = get_userdata($iObjectId);
     
-    $userGroupsForObject = &$userAccessManager->getAccessHandler()->getUserGroupsForObject(
-        $objectType, 
-        $objectId
+    $aUserGroupsForObject = $oUserAccessManager->getAccessHandler()->getUserGroupsForObject(
+        $sObjectType,
+        $iObjectId
     );
 } else {
-    $userGroupsForObject = array();
+    $aUserGroupsForObject = array();
 }
 
 ?>
@@ -42,7 +42,7 @@ if (isset($_GET['user_id'])) {
 			</th>
 			<td>
 <?php
-if (!$userAccessManager->getAccessHandler()->userIsAdmin($objectId)) {
+if (!$oUserAccessManager->getAccessHandler()->userIsAdmin($iObjectId)) {
     include 'groupSelectionForm.php';
 } else {
     echo TXT_UAM_ADMIN_HINT;

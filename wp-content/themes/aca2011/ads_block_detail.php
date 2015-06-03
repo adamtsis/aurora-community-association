@@ -45,7 +45,7 @@
         <td>
             <div id="ads-block-bottom">
                 <table class="table-full-height table-full-width">
-                    <tr><td class="align-middle"><div id="ads_promo_slider"><?php echo do_shortcode('[promoslider width="290px" height="160px"]') ?></div></td></tr>
+                    <tr><td class="align-middle"><div id="ads_promo_slider"><?php echo do_shortcode('[promoslider width="290px" height="160px" display_nav="none"]') ?></div></td></tr>
                     <!--tr>
                         <td class="align-center align-middle">
                             <a href="http://www.cfllc.org.au/"><img src="<?php bloginfo('template_url') ?>/images/cflc_logo.png" alt="Creeds Farm Living and Learning Centre" /></a>

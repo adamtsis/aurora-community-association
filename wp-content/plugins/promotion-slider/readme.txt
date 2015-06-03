@@ -3,12 +3,11 @@
 Contributors: woodent
 Donate link: http://www.orderofbusiness.net/payments/
 Tags: slideshow, promotions, slider, javascript slider, jquery slider, carousel, featured content, news, gallery, banners, image rotation, images, rotate, auto, autoplay, shortcode, slide, ad, ad gallery, advertisement, ads, media, pictures, custom post types, thumbnails
-Requires at least: 3.0
-Tested up to: 3.1
-Stable Tag: 3.3.1
+Requires at least: 3.2
+Tested up to: 3.5.1
+Stable Tag: 3.3.4
 
 Promotion Slider is a jQuery slideshow populated by the promotions you enter into the WordPress admin area.
-
 
 == Description ==
 
@@ -65,6 +64,7 @@ There are several attributes that are supported by the `[promoslider]` shortcode
 3. **height** - Set the height of the carousel to fit your needs.  By default the height of the slider is 235px.  It is best to define the height of the slider using pixels.  Example: `[promoslider height="300px"]`
 4. **post_type** - You can display any post type in the slider, including custom post types.  Most users will probably just use the built-in 'promotion' post type and the default WordPress 'post' post type.  The 'promotion' post type is default, so you would only need to specify this if you want to display your standard WordPress blog posts.  Example: `[promoslider post_type="post"]`
 5. **category** - You can choose to display only posts from a particular category, regardless of which post type you are pulling from.  Please note that if a category doesn't exist, all posts will show in the slider.  If there are no posts in an existing category, the slider will not show at all when using this attribute.  Example: `[promoslider category="my_category"]`
+6. **slider** - You can choose to display only posts from a particular slider.  Please note that if a slider doesn't exist, all promotions will show in the slider.  If there are no promotions in an existing slider, the slider will not show at all when using this attribute.  Example: `[promoslider slider="my_slider"]`
 6. **numberposts** - The numberposts attribute allows you to set the number of posts to display in the slider.  The default is -1 and will show all available posts. Example: `[promoslider numberposts="3"]`
 7. **start_on** - This attribute allows you to set which slide the slider starts on when the page loads.  This attribute accepts the values 'random' and 'first'. Example: `[promoslider start_on="first"]`
 8. **auto_advance** - The auto advance attribute allows you to override the site-wide settings and either allow or disallow the automatic advancement of slides.  This attribute accepts two values: auto_advance and no_auto_advance. All sliders will auto advance by default. Example: `[promoslider auto_advance="false"]`
@@ -180,6 +180,25 @@ Here is a list of all the hooks available to advanced users:
 
 == Changelog ==
 
+= 3.3.4 =
+* Toned down z-index for slider transition to minimize menu overlap issues.
+* Fixed bug where slider shortcode attribute wasn't working.
+* Changed time delay option to a numeric input.
+* Fixed bug where navigating back one slide at a time would fail when you came to the first slide.
+
+= 3.3.3 =
+* Bug fix for JS in IE - removed accidentally committed console.log line
+
+= 3.3.2 =
+* Updated slide transition to be smoother
+* Added tabbed navigation
+* Added thumbnail images to the admin promotion listing screen
+
+= 3.3.1 =
+* Updated .pot file
+* Bug fix: Updated the way id was assigned to main slider div.
+* Completed the contextual help for the slider options page.
+
 = 3.3.0 =
 * Simplified the plugin options page so that it is less confusing. Added a sidebar with helpful information.
 * Added several attributes to the shortcode: display_nav, display_title, display_excerpt and pause_on_hover.
@@ -292,6 +311,18 @@ Here is a list of all the hooks available to advanced users:
 * Promotion Slider is now available for download!
 
 == Upgrade Notice ==
+
+= 3.3.4 =
+Fixed issue where slider shortcode attribute wasn't working, fix to minimize menu overlap issues and changed time delay option to a numeric input.
+
+= 3.3.3 =
+Bug fix for JS in IE
+
+= 3.3.2 =
+Made slide transitions smoother, added tabbed navigation and thumbnails in admin.
+
+= 3.3.1 =
+Fixed a minor bug and updated the .pot file.
 
 = 3.3.0 =
 Added several shortcode attributes and plugin options.  Made the options panel more clear, added a category filter to the promotions listing and fixed a few minor bugs.
