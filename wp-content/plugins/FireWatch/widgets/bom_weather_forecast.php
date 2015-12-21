@@ -29,7 +29,7 @@ function get_bom_weather_forecast($bom_area) {
         $TEMP_LOCATION[$ITEM_INDEX] = "";
         $date = $element_type['start-time-local'];
         $low_temp = $element_type->element[1];
-        $high_temp = $element_type->element[2];
+        $high_temp = $element_type->element[3];
         $day = date("D", strtotime($date));
         $TEMP_LOCATION[$ITEM_INDEX] .= "$day: $high_temp&deg;C";
         $ITEM_INDEX += 1;
